@@ -1,0 +1,562 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2669E6701DC054CB00FDF183 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E66F1DC054CB00FDF183 /* main.m */; };
+		2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6721DC054CB00FDF183 /* AppDelegate.m */; };
+		2669E67B1DC054CB00FDF183 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2669E67A1DC054CB00FDF183 /* Assets.xcassets */; };
+		2669E67E1DC054CB00FDF183 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2669E67C1DC054CB00FDF183 /* LaunchScreen.storyboard */; };
+		2669E6891DC054CB00FDF183 /* UVMeterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6881DC054CB00FDF183 /* UVMeterTests.m */; };
+		2669E6941DC054CB00FDF183 /* UVMeterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6931DC054CB00FDF183 /* UVMeterUITests.m */; };
+		2669E6A61DC054FA00FDF183 /* arrows.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A21DC054FA00FDF183 /* arrows.png */; };
+		2669E6A71DC054FA00FDF183 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A31DC054FA00FDF183 /* block.png */; };
+		2669E6A81DC054FA00FDF183 /* bs.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A41DC054FA00FDF183 /* bs.png */; };
+		2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A51DC054FA00FDF183 /* rainbow.png */; };
+		2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B11DC0566A00FDF183 /* MainPage.m */; };
+		2669E6B51DC0568000FDF183 /* SetPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B41DC0568000FDF183 /* SetPage.m */; };
+		2669E6BB1DC0576E00FDF183 /* BTPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6BA1DC0576E00FDF183 /* BTPage.m */; };
+		2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6FD1DC0B24700FDF183 /* BleConnect.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2669E6851DC054CB00FDF183 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2669E6631DC054CB00FDF183 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2669E66A1DC054CB00FDF183;
+			remoteInfo = UVMeter;
+		};
+		2669E6901DC054CB00FDF183 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2669E6631DC054CB00FDF183 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2669E66A1DC054CB00FDF183;
+			remoteInfo = UVMeter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2669E66B1DC054CB00FDF183 /* UVMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UVMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2669E66F1DC054CB00FDF183 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2669E6711DC054CB00FDF183 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2669E6721DC054CB00FDF183 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2669E67A1DC054CB00FDF183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2669E67D1DC054CB00FDF183 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2669E67F1DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2669E6841DC054CB00FDF183 /* UVMeterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UVMeterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2669E6881DC054CB00FDF183 /* UVMeterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UVMeterTests.m; sourceTree = "<group>"; };
+		2669E68A1DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2669E68F1DC054CB00FDF183 /* UVMeterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UVMeterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2669E6931DC054CB00FDF183 /* UVMeterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UVMeterUITests.m; sourceTree = "<group>"; };
+		2669E6951DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2669E6A21DC054FA00FDF183 /* arrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows.png; sourceTree = "<group>"; };
+		2669E6A31DC054FA00FDF183 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block.png; sourceTree = "<group>"; };
+		2669E6A41DC054FA00FDF183 /* bs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bs.png; sourceTree = "<group>"; };
+		2669E6A51DC054FA00FDF183 /* rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rainbow.png; sourceTree = "<group>"; };
+		2669E6B01DC0566A00FDF183 /* MainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPage.h; sourceTree = "<group>"; };
+		2669E6B11DC0566A00FDF183 /* MainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPage.m; sourceTree = "<group>"; };
+		2669E6B31DC0568000FDF183 /* SetPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPage.h; sourceTree = "<group>"; };
+		2669E6B41DC0568000FDF183 /* SetPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPage.m; sourceTree = "<group>"; };
+		2669E6B91DC0576E00FDF183 /* BTPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPage.h; sourceTree = "<group>"; };
+		2669E6BA1DC0576E00FDF183 /* BTPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPage.m; sourceTree = "<group>"; };
+		2669E6FC1DC0B24700FDF183 /* BleConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleConnect.h; sourceTree = "<group>"; };
+		2669E6FD1DC0B24700FDF183 /* BleConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleConnect.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2669E6681DC054CB00FDF183 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E6811DC054CB00FDF183 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E68C1DC054CB00FDF183 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2669E6621DC054CB00FDF183 = {
+			isa = PBXGroup;
+			children = (
+				2669E6FB1DC0B24700FDF183 /* ble */,
+				2669E6A11DC054FA00FDF183 /* png */,
+				2669E66D1DC054CB00FDF183 /* UVMeter */,
+				2669E6871DC054CB00FDF183 /* UVMeterTests */,
+				2669E6921DC054CB00FDF183 /* UVMeterUITests */,
+				2669E66C1DC054CB00FDF183 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2669E66C1DC054CB00FDF183 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2669E66B1DC054CB00FDF183 /* UVMeter.app */,
+				2669E6841DC054CB00FDF183 /* UVMeterTests.xctest */,
+				2669E68F1DC054CB00FDF183 /* UVMeterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2669E66D1DC054CB00FDF183 /* UVMeter */ = {
+			isa = PBXGroup;
+			children = (
+				2669E6B01DC0566A00FDF183 /* MainPage.h */,
+				2669E6B11DC0566A00FDF183 /* MainPage.m */,
+				2669E6B91DC0576E00FDF183 /* BTPage.h */,
+				2669E6BA1DC0576E00FDF183 /* BTPage.m */,
+				2669E6B31DC0568000FDF183 /* SetPage.h */,
+				2669E6B41DC0568000FDF183 /* SetPage.m */,
+				2669E6711DC054CB00FDF183 /* AppDelegate.h */,
+				2669E6721DC054CB00FDF183 /* AppDelegate.m */,
+				2669E67A1DC054CB00FDF183 /* Assets.xcassets */,
+				2669E67C1DC054CB00FDF183 /* LaunchScreen.storyboard */,
+				2669E67F1DC054CB00FDF183 /* Info.plist */,
+				2669E66E1DC054CB00FDF183 /* Supporting Files */,
+			);
+			path = UVMeter;
+			sourceTree = "<group>";
+		};
+		2669E66E1DC054CB00FDF183 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2669E66F1DC054CB00FDF183 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2669E6871DC054CB00FDF183 /* UVMeterTests */ = {
+			isa = PBXGroup;
+			children = (
+				2669E6881DC054CB00FDF183 /* UVMeterTests.m */,
+				2669E68A1DC054CB00FDF183 /* Info.plist */,
+			);
+			path = UVMeterTests;
+			sourceTree = "<group>";
+		};
+		2669E6921DC054CB00FDF183 /* UVMeterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2669E6931DC054CB00FDF183 /* UVMeterUITests.m */,
+				2669E6951DC054CB00FDF183 /* Info.plist */,
+			);
+			path = UVMeterUITests;
+			sourceTree = "<group>";
+		};
+		2669E6A11DC054FA00FDF183 /* png */ = {
+			isa = PBXGroup;
+			children = (
+				2669E6A21DC054FA00FDF183 /* arrows.png */,
+				2669E6A31DC054FA00FDF183 /* block.png */,
+				2669E6A41DC054FA00FDF183 /* bs.png */,
+				2669E6A51DC054FA00FDF183 /* rainbow.png */,
+			);
+			path = png;
+			sourceTree = "<group>";
+		};
+		2669E6FB1DC0B24700FDF183 /* ble */ = {
+			isa = PBXGroup;
+			children = (
+				2669E6FC1DC0B24700FDF183 /* BleConnect.h */,
+				2669E6FD1DC0B24700FDF183 /* BleConnect.m */,
+			);
+			path = ble;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2669E66A1DC054CB00FDF183 /* UVMeter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2669E6981DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeter" */;
+			buildPhases = (
+				2669E6671DC054CB00FDF183 /* Sources */,
+				2669E6681DC054CB00FDF183 /* Frameworks */,
+				2669E6691DC054CB00FDF183 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UVMeter;
+			productName = UVMeter;
+			productReference = 2669E66B1DC054CB00FDF183 /* UVMeter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2669E6831DC054CB00FDF183 /* UVMeterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2669E69B1DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeterTests" */;
+			buildPhases = (
+				2669E6801DC054CB00FDF183 /* Sources */,
+				2669E6811DC054CB00FDF183 /* Frameworks */,
+				2669E6821DC054CB00FDF183 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2669E6861DC054CB00FDF183 /* PBXTargetDependency */,
+			);
+			name = UVMeterTests;
+			productName = UVMeterTests;
+			productReference = 2669E6841DC054CB00FDF183 /* UVMeterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2669E68E1DC054CB00FDF183 /* UVMeterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2669E69E1DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeterUITests" */;
+			buildPhases = (
+				2669E68B1DC054CB00FDF183 /* Sources */,
+				2669E68C1DC054CB00FDF183 /* Frameworks */,
+				2669E68D1DC054CB00FDF183 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2669E6911DC054CB00FDF183 /* PBXTargetDependency */,
+			);
+			name = UVMeterUITests;
+			productName = UVMeterUITests;
+			productReference = 2669E68F1DC054CB00FDF183 /* UVMeterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2669E6631DC054CB00FDF183 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Jinoux;
+				TargetAttributes = {
+					2669E66A1DC054CB00FDF183 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					2669E6831DC054CB00FDF183 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 2669E66A1DC054CB00FDF183;
+					};
+					2669E68E1DC054CB00FDF183 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 2669E66A1DC054CB00FDF183;
+					};
+				};
+			};
+			buildConfigurationList = 2669E6661DC054CB00FDF183 /* Build configuration list for PBXProject "UVMeter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2669E6621DC054CB00FDF183;
+			productRefGroup = 2669E66C1DC054CB00FDF183 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2669E66A1DC054CB00FDF183 /* UVMeter */,
+				2669E6831DC054CB00FDF183 /* UVMeterTests */,
+				2669E68E1DC054CB00FDF183 /* UVMeterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2669E6691DC054CB00FDF183 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2669E67E1DC054CB00FDF183 /* LaunchScreen.storyboard in Resources */,
+				2669E67B1DC054CB00FDF183 /* Assets.xcassets in Resources */,
+				2669E6A81DC054FA00FDF183 /* bs.png in Resources */,
+				2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */,
+				2669E6A61DC054FA00FDF183 /* arrows.png in Resources */,
+				2669E6A71DC054FA00FDF183 /* block.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E6821DC054CB00FDF183 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E68D1DC054CB00FDF183 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2669E6671DC054CB00FDF183 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2669E6BB1DC0576E00FDF183 /* BTPage.m in Sources */,
+				2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */,
+				2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */,
+				2669E6B51DC0568000FDF183 /* SetPage.m in Sources */,
+				2669E6701DC054CB00FDF183 /* main.m in Sources */,
+				2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E6801DC054CB00FDF183 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2669E6891DC054CB00FDF183 /* UVMeterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2669E68B1DC054CB00FDF183 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2669E6941DC054CB00FDF183 /* UVMeterUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2669E6861DC054CB00FDF183 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2669E66A1DC054CB00FDF183 /* UVMeter */;
+			targetProxy = 2669E6851DC054CB00FDF183 /* PBXContainerItemProxy */;
+		};
+		2669E6911DC054CB00FDF183 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2669E66A1DC054CB00FDF183 /* UVMeter */;
+			targetProxy = 2669E6901DC054CB00FDF183 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2669E67C1DC054CB00FDF183 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2669E67D1DC054CB00FDF183 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2669E6961DC054CB00FDF183 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2669E6971DC054CB00FDF183 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2669E6991DC054CB00FDF183 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = UVMeter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2669E69A1DC054CB00FDF183 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = UVMeter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2669E69C1DC054CB00FDF183 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = UVMeterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UVMeter.app/UVMeter";
+			};
+			name = Debug;
+		};
+		2669E69D1DC054CB00FDF183 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = UVMeterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UVMeter.app/UVMeter";
+			};
+			name = Release;
+		};
+		2669E69F1DC054CB00FDF183 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = UVMeterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = UVMeter;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		2669E6A01DC054CB00FDF183 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = UVMeterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = UVMeter;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2669E6661DC054CB00FDF183 /* Build configuration list for PBXProject "UVMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2669E6961DC054CB00FDF183 /* Debug */,
+				2669E6971DC054CB00FDF183 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2669E6981DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2669E6991DC054CB00FDF183 /* Debug */,
+				2669E69A1DC054CB00FDF183 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2669E69B1DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2669E69C1DC054CB00FDF183 /* Debug */,
+				2669E69D1DC054CB00FDF183 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2669E69E1DC054CB00FDF183 /* Build configuration list for PBXNativeTarget "UVMeterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2669E69F1DC054CB00FDF183 /* Debug */,
+				2669E6A01DC054CB00FDF183 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2669E6631DC054CB00FDF183 /* Project object */;
+}
