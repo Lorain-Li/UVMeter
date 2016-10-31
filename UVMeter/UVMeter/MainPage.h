@@ -14,5 +14,7 @@
     UIView* arrows;
     UILabel* updatetime;
     NSDateFormatter* formatter;
+    CGFloat _screenH,_screenW;
+    NSTimer* _tpTimer;
 }
 @end

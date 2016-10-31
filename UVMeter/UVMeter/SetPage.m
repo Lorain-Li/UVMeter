@@ -55,6 +55,34 @@
     return 2;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        if (indexPath.row < 5) {
+            return 40;
+        }
+        else
+        {
+            return 60;
+        }
+    }
+    else
+    {
+        return 50;
+    }
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return [NSString stringWithFormat:@"功能设定"];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"更新频率"];
+    }
+}
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0)
@@ -75,19 +103,33 @@
         if(indexPath.row < 5)
         {
             _cell.textLabel.text = [_linetxt objectAtIndex:indexPath.row];
-            UISwitch* _chnSW = [[UISwitch alloc] initWithFrame:CGRectMake(_scWidth - 40, 10, 0, 0)];
+            UISwitch* _chnSW = [[UISwitch alloc] initWithFrame:CGRectMake(_scWidth - 60, 5, 0, 0)];
             _chnSW.tag = 10 + indexPath.row;
             [_cell addSubview:_chnSW];
         }
         else
         {
-            UIStepper* _ch5ST = [[UIStepper alloc] initWithFrame:CGRectMake(20, 10, _scWidth - 40 , 40)];
-
+            UISegmentedControl* _ch5SG = [[UISegmentedControl alloc] initWithFrame:CGRectMake(20, 10, _scWidth - 40 , 40)];
+            [_ch5SG insertSegmentWithTitle:@"UV Deep" atIndex:0 animated:TRUE];
+            [_ch5SG insertSegmentWithTitle:@"  " atIndex:1 animated:TRUE];
+            [_ch5SG insertSegmentWithTitle:@"Large IR" atIndex:2 animated:TRUE];
+            _ch5SG.selectedSegmentIndex = 1;
+            [_cell addSubview:_ch5SG];
         }
     }
     else
     {
-        
+        UIStepper* _upSteper = [[UIStepper alloc] initWithFrame:CGRectMake(_scWidth - 100, 10, 0, 40)];
+        _upSteper.minimumValue = 1;
+        _upSteper.maximumValue = 60;
+        _upSteper.stepValue = 1;
+        _upSteper.value = 10;
+        _upSteper.autorepeat = YES;
+        _upSteper.continuous = YES;
+        UILabel* _timTxt = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 50)];
+        _timTxt.text = @"次/分";
+        [_cell addSubview:_upSteper];
+        [_cell addSubview:_timTxt];
     }
     return _cell;
 }

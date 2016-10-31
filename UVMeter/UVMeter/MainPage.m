@@ -19,21 +19,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _screenW = [[UIScreen mainScreen] bounds].size.width;
+    _screenH = [[UIScreen mainScreen] bounds].size.height;
+    
     self.title = @" ";
     self.view.backgroundColor = [UIColor blackColor];
-    UIBarButtonItem* _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"Bluetooth" style:UIBarButtonItemStyleDone target:self action:@selector(pressBluetooth)];
-    UIBarButtonItem* _setting = [[UIBarButtonItem alloc] initWithTitle:@"Setting" style:UIBarButtonItemStyleDone target:self action:@selector(pressSetting)];
+    UIBarButtonItem* _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
+    //UIBarButtonItem* _setting = [[UIBarButtonItem alloc] initWithTitle:@"帮助" style:UIBarButtonItemStyleDone target:self action:@selector(pressInfo)];
     //添加占位按钮
     UIBarButtonItem* _space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    _space.width = 150;
-    NSArray* _buttonA = [[NSArray alloc] initWithObjects:_bluetooth,_space,_setting,nil];
+    _space.width = _screenW/2 - 40;
+    NSArray* _buttonA = [[NSArray alloc] initWithObjects:_space,_bluetooth,_space,nil];
     //将按钮添加到工具栏
     self.toolbarItems = _buttonA;
     self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
-
-    CGFloat _screenW = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat _screenH = [[UIScreen mainScreen] bounds].size.height;
-    
+ 
     UILabel* _uvIndex = [[UILabel alloc] init];
     UILabel* _date = [[UILabel alloc] init];
     _uvIndex.text = @"UV Index";
@@ -102,7 +102,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+    _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
 }
 
 -(void)steper
@@ -121,6 +121,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void) pressBluetooth
 {
     BTPage* _navPage = [[BTPage alloc] init];
@@ -132,6 +133,41 @@
     SetPage* _navPage = [[SetPage alloc] init];
     [self.navigationController pushViewController:_navPage animated:TRUE];
 }
+
+- (void) pressInfo
+{
+    
+}
+
+- (void) pressSearch
+{
+    UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
+    _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.4F];
+    _alpha.tag = 10;
+    UIActivityIndicatorView* _wait = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(_screenW/2 - 50, _screenH/2 - 50, 100, 100)];
+    _wait.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    _wait.tag = 11;
+    if([self.view viewWithTag:11] == nil)
+    {
+        [self.view addSubview:_alpha];
+        [self.view addSubview:_wait];
+        [_wait startAnimating];
+        [_tpTimer invalidate];
+        [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(showDevice) userInfo:nil repeats:FALSE];
+    }
+    else
+    {
+        [[self.view viewWithTag:11] removeFromSuperview];
+        [[self.view viewWithTag:10] removeFromSuperview];
+        _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+    }
+}
+
+- (void) showDevice
+{
+    
+}
+
 /*
 #pragma mark - Navigation
 
