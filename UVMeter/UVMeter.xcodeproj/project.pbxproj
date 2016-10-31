@@ -11,14 +11,13 @@
 		2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6721DC054CB00FDF183 /* AppDelegate.m */; };
 		2669E67B1DC054CB00FDF183 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2669E67A1DC054CB00FDF183 /* Assets.xcassets */; };
 		2669E67E1DC054CB00FDF183 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2669E67C1DC054CB00FDF183 /* LaunchScreen.storyboard */; };
-		2669E6891DC054CB00FDF183 /* UVMeterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6881DC054CB00FDF183 /* UVMeterTests.m */; };
-		2669E6941DC054CB00FDF183 /* UVMeterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6931DC054CB00FDF183 /* UVMeterUITests.m */; };
 		2669E6A61DC054FA00FDF183 /* arrows.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A21DC054FA00FDF183 /* arrows.png */; };
 		2669E6A71DC054FA00FDF183 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A31DC054FA00FDF183 /* block.png */; };
 		2669E6A81DC054FA00FDF183 /* bs.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A41DC054FA00FDF183 /* bs.png */; };
 		2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A51DC054FA00FDF183 /* rainbow.png */; };
 		2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B11DC0566A00FDF183 /* MainPage.m */; };
 		2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6FD1DC0B24700FDF183 /* BleConnect.m */; };
+		2699B0391DC7231900AFC73E /* BleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2699B0381DC7231900AFC73E /* BleCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,11 +46,7 @@
 		2669E67D1DC054CB00FDF183 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2669E67F1DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2669E6841DC054CB00FDF183 /* UVMeterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UVMeterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2669E6881DC054CB00FDF183 /* UVMeterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UVMeterTests.m; sourceTree = "<group>"; };
-		2669E68A1DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2669E68F1DC054CB00FDF183 /* UVMeterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UVMeterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2669E6931DC054CB00FDF183 /* UVMeterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UVMeterUITests.m; sourceTree = "<group>"; };
-		2669E6951DC054CB00FDF183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2669E6A21DC054FA00FDF183 /* arrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrows.png; sourceTree = "<group>"; };
 		2669E6A31DC054FA00FDF183 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block.png; sourceTree = "<group>"; };
 		2669E6A41DC054FA00FDF183 /* bs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bs.png; sourceTree = "<group>"; };
@@ -60,6 +55,8 @@
 		2669E6B11DC0566A00FDF183 /* MainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPage.m; sourceTree = "<group>"; };
 		2669E6FC1DC0B24700FDF183 /* BleConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleConnect.h; sourceTree = "<group>"; };
 		2669E6FD1DC0B24700FDF183 /* BleConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleConnect.m; sourceTree = "<group>"; };
+		2699B0371DC7231900AFC73E /* BleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleCell.h; sourceTree = "<group>"; };
+		2699B0381DC7231900AFC73E /* BleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +90,6 @@
 				2669E6FB1DC0B24700FDF183 /* ble */,
 				2669E6A11DC054FA00FDF183 /* png */,
 				2669E66D1DC054CB00FDF183 /* UVMeter */,
-				2669E6871DC054CB00FDF183 /* UVMeterTests */,
-				2669E6921DC054CB00FDF183 /* UVMeterUITests */,
 				2669E66C1DC054CB00FDF183 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,6 +109,8 @@
 			children = (
 				2669E6B01DC0566A00FDF183 /* MainPage.h */,
 				2669E6B11DC0566A00FDF183 /* MainPage.m */,
+				2699B0371DC7231900AFC73E /* BleCell.h */,
+				2699B0381DC7231900AFC73E /* BleCell.m */,
 				2669E6711DC054CB00FDF183 /* AppDelegate.h */,
 				2669E6721DC054CB00FDF183 /* AppDelegate.m */,
 				2669E67A1DC054CB00FDF183 /* Assets.xcassets */,
@@ -130,24 +127,6 @@
 				2669E66F1DC054CB00FDF183 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2669E6871DC054CB00FDF183 /* UVMeterTests */ = {
-			isa = PBXGroup;
-			children = (
-				2669E6881DC054CB00FDF183 /* UVMeterTests.m */,
-				2669E68A1DC054CB00FDF183 /* Info.plist */,
-			);
-			path = UVMeterTests;
-			sourceTree = "<group>";
-		};
-		2669E6921DC054CB00FDF183 /* UVMeterUITests */ = {
-			isa = PBXGroup;
-			children = (
-				2669E6931DC054CB00FDF183 /* UVMeterUITests.m */,
-				2669E6951DC054CB00FDF183 /* Info.plist */,
-			);
-			path = UVMeterUITests;
 			sourceTree = "<group>";
 		};
 		2669E6A11DC054FA00FDF183 /* png */ = {
@@ -305,6 +284,7 @@
 			files = (
 				2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */,
 				2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */,
+				2699B0391DC7231900AFC73E /* BleCell.m in Sources */,
 				2669E6701DC054CB00FDF183 /* main.m in Sources */,
 				2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */,
 			);
@@ -314,7 +294,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2669E6891DC054CB00FDF183 /* UVMeterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +301,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2669E6941DC054CB00FDF183 /* UVMeterUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

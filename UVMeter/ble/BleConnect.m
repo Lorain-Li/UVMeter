@@ -19,6 +19,8 @@
 #define INQURY_TIMEOUT  5.0
 #define CONNECT_TIMEOUT 3.0
 
+#define AntiLost_alarmPhone                     @"xxxxxxx"
+
 const static Byte  byte1[4] = {0x55,0xaa,0x07,0x00};
 
 const static Byte  byte2[4] = {0x55,0xaa,0x08,0x00};
@@ -281,17 +283,17 @@ const static Byte  byte2[4] = {0x55,0xaa,0x08,0x00};
         NSData *photo = [NSData dataWithBytes:byte2 length:4];
         if ([characteristic.value isEqualToData:telphone])
         {
-            if ([UserDefaults objectForKey:AntiLost_alarmPhone] == nil)
+            if ([NSUserDefaults objectForKey:AntiLost_alarmPhone] == nil)
             {
                 return;
             }
-            if ([[UserDefaults objectForKey:AntiLost_alarmPhone] isEqualToString:@""])
+            if ([[NSUserDefaults objectForKey:AntiLost_alarmPhone] isEqualToString:@""])
             {
                 return;
             }
             dispatch_async(dispatch_get_main_queue(), ^{
             
-                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",[UserDefaults objectForKey:AntiLost_alarmPhone]];
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",[NSUserDefaults objectForKey:AntiLost_alarmPhone]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
             });
             

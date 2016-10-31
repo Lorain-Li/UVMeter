@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainPage : UIViewController
+<UITableViewDelegate,UITableViewDataSource>
 {
     int _count;
     UIView* arrows;
@@ -16,5 +17,12 @@
     NSDateFormatter* formatter;
     CGFloat _screenH,_screenW;
     NSTimer* _tpTimer;
+    NSMutableArray* _bletab;
 }
+
+#define TABVIEWCELL_HIGHT   (50)
+#define TABVIEWCELL_WIDTH   (240)
+#define TABVIEW_HIGHT       (200)
+#define TABVIEW_WIDTH       (240)
+
 @end

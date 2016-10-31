@@ -7,7 +7,7 @@
 //
 
 #import "MainPage.h"
-
+#import "BleCell.h"
 @interface MainPage ()
 
 @end
@@ -127,28 +127,92 @@
     _alpha.tag = 10;
     UIActivityIndicatorView* _wait = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(_screenW/2 - 50, _screenH/2 - 50, 100, 100)];
     _wait.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    _wait.tag = 11;
-    if([self.view viewWithTag:11] == nil)
+
+    if([self.view viewWithTag:10] == nil)
     {
+        [_alpha addSubview:_wait];
         [self.view addSubview:_alpha];
-        [self.view addSubview:_wait];
         [_wait startAnimating];
         [_tpTimer invalidate];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(showDevice) userInfo:nil repeats:FALSE];
-    }
-    else
-    {
-        [[self.view viewWithTag:11] removeFromSuperview];
-        [[self.view viewWithTag:10] removeFromSuperview];
-        _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
     }
 }
 
 - (void) showDevice
 {
+    UIView* _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
+    UIView* _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
+    UITableView* _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
+    UILabel* _labtitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, TABVIEWCELL_WIDTH - 40, TABVIEWCELL_HIGHT)];
     
+    //_bletitle.backgroundColor = [UIColor grayColor];
+    _labtitle.text = @"选择蓝牙设备";
+    _labtitle.font = [UIFont systemFontOfSize:20];
+    _labtitle.textAlignment = NSTextAlignmentCenter;
+    _bletitle.layer.cornerRadius = 20;
+    
+    _blelist.delegate = self;
+    _blelist.dataSource = self;
+    _blelist.layer.cornerRadius = 20;
+    
+    _bleback.backgroundColor = [UIColor whiteColor];
+    _bleback.layer.cornerRadius = 20;
+    _bleback.tag = 12;
+    
+    [_bletitle addSubview:_labtitle];
+    [_bleback addSubview:_bletitle];
+    [_bleback addSubview:_blelist];
+    [self.view addSubview:_bleback];
+}
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
 }
 
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BleCell* _cell = [[BleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"T_T"];
+    UIView* _background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
+    UILabel* _showname = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, TABVIEWCELL_WIDTH-10, 35)];
+    UILabel* _showadr = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, TABVIEWCELL_WIDTH-10, 15)];
+    _background.layer.cornerRadius = 10;
+    _showname.text = @"UV Band";
+    _showadr.text = @"10:11:12:13:14:1E";
+    _showname.font = [UIFont systemFontOfSize:24];
+    _showadr.font = [UIFont systemFontOfSize:12];
+    
+    _showadr.textColor = [UIColor grayColor];
+    [_cell addSubview:_background];
+    [_cell addSubview:_showname];
+    [_cell addSubview:_showadr];
+
+    return _cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[self.view viewWithTag:12] removeFromSuperview];
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timeEnd) userInfo:nil repeats:FALSE];
+}
+
+- (void) timeEnd
+{
+    if([self.view viewWithTag:10] != nil)
+    {
+        [[self.view viewWithTag:10] removeFromSuperview];
+        _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+    }
+}
 /*
 #pragma mark - Navigation
 
