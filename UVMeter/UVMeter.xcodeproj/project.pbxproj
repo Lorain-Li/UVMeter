@@ -18,8 +18,6 @@
 		2669E6A81DC054FA00FDF183 /* bs.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A41DC054FA00FDF183 /* bs.png */; };
 		2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A51DC054FA00FDF183 /* rainbow.png */; };
 		2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B11DC0566A00FDF183 /* MainPage.m */; };
-		2669E6B51DC0568000FDF183 /* SetPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B41DC0568000FDF183 /* SetPage.m */; };
-		2669E6BB1DC0576E00FDF183 /* BTPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6BA1DC0576E00FDF183 /* BTPage.m */; };
 		2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6FD1DC0B24700FDF183 /* BleConnect.m */; };
 /* End PBXBuildFile section */
 
@@ -60,10 +58,6 @@
 		2669E6A51DC054FA00FDF183 /* rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rainbow.png; sourceTree = "<group>"; };
 		2669E6B01DC0566A00FDF183 /* MainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPage.h; sourceTree = "<group>"; };
 		2669E6B11DC0566A00FDF183 /* MainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPage.m; sourceTree = "<group>"; };
-		2669E6B31DC0568000FDF183 /* SetPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPage.h; sourceTree = "<group>"; };
-		2669E6B41DC0568000FDF183 /* SetPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPage.m; sourceTree = "<group>"; };
-		2669E6B91DC0576E00FDF183 /* BTPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPage.h; sourceTree = "<group>"; };
-		2669E6BA1DC0576E00FDF183 /* BTPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPage.m; sourceTree = "<group>"; };
 		2669E6FC1DC0B24700FDF183 /* BleConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleConnect.h; sourceTree = "<group>"; };
 		2669E6FD1DC0B24700FDF183 /* BleConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleConnect.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,10 +114,6 @@
 			children = (
 				2669E6B01DC0566A00FDF183 /* MainPage.h */,
 				2669E6B11DC0566A00FDF183 /* MainPage.m */,
-				2669E6B91DC0576E00FDF183 /* BTPage.h */,
-				2669E6BA1DC0576E00FDF183 /* BTPage.m */,
-				2669E6B31DC0568000FDF183 /* SetPage.h */,
-				2669E6B41DC0568000FDF183 /* SetPage.m */,
 				2669E6711DC054CB00FDF183 /* AppDelegate.h */,
 				2669E6721DC054CB00FDF183 /* AppDelegate.m */,
 				2669E67A1DC054CB00FDF183 /* Assets.xcassets */,
@@ -313,10 +303,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2669E6BB1DC0576E00FDF183 /* BTPage.m in Sources */,
 				2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */,
 				2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */,
-				2669E6B51DC0568000FDF183 /* SetPage.m in Sources */,
 				2669E6701DC054CB00FDF183 /* main.m in Sources */,
 				2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */,
 			);

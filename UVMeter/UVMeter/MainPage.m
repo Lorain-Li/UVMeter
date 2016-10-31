@@ -7,8 +7,6 @@
 //
 
 #import "MainPage.h"
-#import "SetPage.h"
-#import "BTPage.h"
 
 @interface MainPage ()
 
@@ -25,7 +23,7 @@
     self.title = @" ";
     self.view.backgroundColor = [UIColor blackColor];
     UIBarButtonItem* _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
-    //UIBarButtonItem* _setting = [[UIBarButtonItem alloc] initWithTitle:@"帮助" style:UIBarButtonItemStyleDone target:self action:@selector(pressInfo)];
+
     //添加占位按钮
     UIBarButtonItem* _space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     _space.width = _screenW/2 - 40;
@@ -120,23 +118,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) pressBluetooth
-{
-    BTPage* _navPage = [[BTPage alloc] init];
-    [self.navigationController pushViewController:_navPage animated:TRUE];
-}
-
--(void) pressSetting
-{
-    SetPage* _navPage = [[SetPage alloc] init];
-    [self.navigationController pushViewController:_navPage animated:TRUE];
-}
-
-- (void) pressInfo
-{
-    
 }
 
 - (void) pressSearch
