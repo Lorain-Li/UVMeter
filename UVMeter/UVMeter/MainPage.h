@@ -14,6 +14,8 @@
 {
     NSInteger _count;
     UIView* arrows;
+    UIView* _bleback;
+    UIView* _bletitle;
     UILabel* updatetime;
     NSDateFormatter* formatter;
     CGFloat _screenH,_screenW;

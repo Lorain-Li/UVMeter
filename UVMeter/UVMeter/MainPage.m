@@ -129,7 +129,16 @@
     if (_periheral == nil) {
         if ([_manager isScanning]) {
             [_manager stopScan];
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.5];
+            _bletitle.alpha = 0;
+            _blelist.alpha = 0;
+            _bleback.alpha = 0;
+            [UIView commitAnimations];
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDelay:0.5];
             [[self.view viewWithTag:10] removeFromSuperview];
+            [UIView commitAnimations];
             _bluetooth.title = @"搜索设备";
             _bletab = [[NSMutableArray alloc] init];
             _periheral = nil;
@@ -137,11 +146,11 @@
         else
         {
             UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
-            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.4F];
+            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.5F];
             _alpha.tag = 10;
             _bluetooth.title = @"取消";
-            UIView* _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
-            UIView* _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
+            _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
+            _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
             _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
             UILabel* _labtitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, TABVIEWCELL_WIDTH - 40, TABVIEWCELL_HIGHT)];
             
@@ -149,19 +158,32 @@
             _labtitle.font = [UIFont systemFontOfSize:20];
             _labtitle.textAlignment = NSTextAlignmentCenter;
             _bletitle.layer.cornerRadius = 20;
+            _bletitle.alpha = 0;
+            
             
             _blelist.delegate = self;
             _blelist.dataSource = self;
             _blelist.layer.cornerRadius = 20;
+            _blelist.alpha = 0;
             
             _bleback.backgroundColor = [UIColor whiteColor];
             _bleback.layer.cornerRadius = 20;
+            _bleback.alpha = 0;
             
             [_bletitle addSubview:_labtitle];
             [_bleback addSubview:_bletitle];
             [_bleback addSubview:_blelist];
             [_alpha addSubview:_bleback];
             [self.view addSubview:_alpha];
+            
+            
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.5];
+            _bletitle.alpha = 1;
+            _blelist.alpha = 1;
+            _bleback.alpha = 1;
+            [UIView commitAnimations];
+            
             [_manager scanForPeripheralsWithServices:nil options:nil];
         }
     }else
@@ -173,10 +195,6 @@
     }
 }
 
-- (void) showDevice
-{
-
-}
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -219,7 +237,16 @@
 {
     [_manager stopScan];
     [_manager connectPeripheral:[_bletab objectAtIndex:indexPath.row] options:nil];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    _bletitle.alpha = 0;
+    _blelist.alpha = 0;
+    _bleback.alpha = 0;
+    [UIView commitAnimations];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelay:0.5];
     [[self.view viewWithTag:10] removeFromSuperview];
+    [UIView commitAnimations];
 }
 
 
@@ -327,8 +354,8 @@
 {
     if ([characteristic.UUID.UUIDString isEqualToString:@"B381"]) {
         NSLog(@"%@",characteristic.value);
-        NSString* _v = (NSString *)characteristic.value;
-        _count = (NSInteger)[_v characterAtIndex:8];
+        const char* _v = [characteristic.value bytes];
+        _count = _v[3];
         NSLog(@"value is %ld",_count);
     }
 }
