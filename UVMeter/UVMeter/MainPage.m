@@ -7,7 +7,6 @@
 //
 
 #import "MainPage.h"
-#import "BleCell.h"
 @interface MainPage ()
 
 @end
@@ -20,13 +19,15 @@
     _screenW = [[UIScreen mainScreen] bounds].size.width;
     _screenH = [[UIScreen mainScreen] bounds].size.height;
     
+    _bletab = [[NSMutableArray alloc] init];
+    
     self.title = @" ";
     self.view.backgroundColor = [UIColor blackColor];
-    UIBarButtonItem* _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
+    _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
 
     //添加占位按钮
-    UIBarButtonItem* _space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    _space.width = _screenW/2 - 40;
+    UIBarButtonItem* _space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+
     NSArray* _buttonA = [[NSArray alloc] initWithObjects:_space,_bluetooth,_space,nil];
     //将按钮添加到工具栏
     self.toolbarItems = _buttonA;
@@ -75,6 +76,10 @@
     [self.view addSubview:_date];
     
      [self rotateImageView:0];
+    
+    _manager = [[CBCentralManager alloc] init];
+    _manager.delegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -106,7 +111,6 @@
 -(void)steper
 {
     [self rotateImageView:_count];
-    _count ++;
 }
 
 -(void)rotateImageView:(NSInteger)index
@@ -122,56 +126,62 @@
 
 - (void) pressSearch
 {
-    UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
-    _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.4F];
-    _alpha.tag = 10;
-    UIActivityIndicatorView* _wait = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(_screenW/2 - 50, _screenH/2 - 50, 100, 100)];
-    _wait.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-
-    if([self.view viewWithTag:10] == nil)
+    if (_periheral == nil) {
+        if ([_manager isScanning]) {
+            [_manager stopScan];
+            [[self.view viewWithTag:10] removeFromSuperview];
+            _bluetooth.title = @"搜索设备";
+            _bletab = [[NSMutableArray alloc] init];
+            _periheral = nil;
+        }
+        else
+        {
+            UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
+            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.4F];
+            _alpha.tag = 10;
+            _bluetooth.title = @"取消";
+            UIView* _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
+            UIView* _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
+            _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
+            UILabel* _labtitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, TABVIEWCELL_WIDTH - 40, TABVIEWCELL_HIGHT)];
+            
+            _labtitle.text = @"选择蓝牙设备";
+            _labtitle.font = [UIFont systemFontOfSize:20];
+            _labtitle.textAlignment = NSTextAlignmentCenter;
+            _bletitle.layer.cornerRadius = 20;
+            
+            _blelist.delegate = self;
+            _blelist.dataSource = self;
+            _blelist.layer.cornerRadius = 20;
+            
+            _bleback.backgroundColor = [UIColor whiteColor];
+            _bleback.layer.cornerRadius = 20;
+            
+            [_bletitle addSubview:_labtitle];
+            [_bleback addSubview:_bletitle];
+            [_bleback addSubview:_blelist];
+            [_alpha addSubview:_bleback];
+            [self.view addSubview:_alpha];
+            [_manager scanForPeripheralsWithServices:nil options:nil];
+        }
+    }else
     {
-        [_alpha addSubview:_wait];
-        [self.view addSubview:_alpha];
-        [_wait startAnimating];
-        [_tpTimer invalidate];
-        [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(showDevice) userInfo:nil repeats:FALSE];
+        [_manager cancelPeripheralConnection:_periheral];
+        _bluetooth.title = @"搜索设备";
+        _bletab = [[NSMutableArray alloc] init];
+        _periheral = nil;
     }
 }
 
 - (void) showDevice
 {
-    UIView* _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
-    UIView* _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
-    UITableView* _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
-    UILabel* _labtitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, TABVIEWCELL_WIDTH - 40, TABVIEWCELL_HIGHT)];
-    
-    //_bletitle.backgroundColor = [UIColor grayColor];
-    _labtitle.text = @"选择蓝牙设备";
-    _labtitle.font = [UIFont systemFontOfSize:20];
-    _labtitle.textAlignment = NSTextAlignmentCenter;
-    _bletitle.layer.cornerRadius = 20;
-    
-    _blelist.delegate = self;
-    _blelist.dataSource = self;
-    _blelist.layer.cornerRadius = 20;
-    
-    _bleback.backgroundColor = [UIColor whiteColor];
-    _bleback.layer.cornerRadius = 20;
-    _bleback.tag = 12;
-    
-    [_bletitle addSubview:_labtitle];
-    [_bleback addSubview:_bletitle];
-    [_bleback addSubview:_blelist];
-    [self.view addSubview:_bleback];
-}
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 3;
+
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    NSLog(@"%ld",_bletab.count);
+    return _bletab.count;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -181,12 +191,14 @@
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     BleCell* _cell = [[BleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"T_T"];
     UIView* _background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
     UILabel* _showname = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, TABVIEWCELL_WIDTH-10, 35)];
     UILabel* _showadr = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, TABVIEWCELL_WIDTH-10, 15)];
     _background.layer.cornerRadius = 10;
-    _showname.text = @"UV Band";
+    _showname.text = [_bletab objectAtIndex:indexPath.row];
+    NSLog(@"%@",_showname.text);
     _showadr.text = @"10:11:12:13:14:1E";
     _showname.font = [UIFont systemFontOfSize:24];
     _showadr.font = [UIFont systemFontOfSize:12];
@@ -195,22 +207,129 @@
     [_cell addSubview:_background];
     [_cell addSubview:_showname];
     [_cell addSubview:_showadr];
-
+*/
+    UITableViewCell* _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"T_T"];
+    CBPeripheral* _perh = [_bletab objectAtIndex:indexPath.row];
+    _cell.textLabel.text = _perh.name;
+    _cell.detailTextLabel.text = @"xx:xx:xx:xx:xx:xx";
     return _cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[self.view viewWithTag:12] removeFromSuperview];
-    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timeEnd) userInfo:nil repeats:FALSE];
+    [_manager stopScan];
+    [_manager connectPeripheral:[_bletab objectAtIndex:indexPath.row] options:nil];
+    [[self.view viewWithTag:10] removeFromSuperview];
 }
 
-- (void) timeEnd
-{
-    if([self.view viewWithTag:10] != nil)
+
+//当前蓝牙主设备状态
+-(void)centralManagerDidUpdateState:(CBCentralManager *)central{
+    if (central.state==CBCentralManagerStatePoweredOn) {
+        self.title = @"蓝牙已就绪";
+    }else
     {
-        [[self.view viewWithTag:10] removeFromSuperview];
-        _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+        self.title = @"蓝牙未准备好";
+        switch (central.state) {
+            case CBCentralManagerStateUnknown:
+                NSLog(@">>>CBCentralManagerStateUnknown");
+                break;
+            case CBCentralManagerStateResetting:
+                NSLog(@">>>CBCentralManagerStateResetting");
+                break;
+            case CBCentralManagerStateUnsupported:
+                NSLog(@">>>CBCentralManagerStateUnsupported");
+                break;
+            case CBCentralManagerStateUnauthorized:
+                NSLog(@">>>CBCentralManagerStateUnauthorized");
+                break;
+            case CBCentralManagerStatePoweredOff:
+                NSLog(@">>>CBCentralManagerStatePoweredOff");
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+//扫描到设备会进入方法
+-(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
+    NSLog(@"扫描连接外设：%@ %@",peripheral.name,RSSI);
+    if (peripheral.name != nil) {
+        [_bletab addObject:peripheral];
+        NSLog(@"%@",peripheral.name);
+        NSLog(@"%@",advertisementData[CBAdvertisementDataManufacturerDataKey]);
+        [_blelist reloadData];
+    }
+}
+
+//连接到Peripherals-成功
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    self.title = @"连接成功，扫描信息...";
+    NSLog(@"连接外设成功！%@",peripheral.name);
+    _periheral = peripheral;
+    [peripheral setDelegate:self];
+    [peripheral discoverServices:nil];          //扫描服务
+    NSLog(@"开始扫描外设服务 %@...",peripheral.name);
+    _bluetooth.title = @"断开连接";
+}
+//连接外设失败
+-(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    NSLog(@"连接到外设 失败！%@ %@",[peripheral name],[error localizedDescription]);
+    self.title = @"连接失败";
+    
+}
+
+//扫描到服务
+-(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
+    if (error)
+    {
+        NSLog(@"扫描外设服务出错：%@-> %@", peripheral.name, [error localizedDescription]);
+        self.title = @"find services error.";
+    
+        return;
+    }
+    NSLog(@"扫描到外设服务：%@ -> %@",peripheral.name,peripheral.services);
+    for (CBService *service in peripheral.services) {
+        [peripheral discoverCharacteristics:nil forService:service]; //扫描特征值
+    }
+    NSLog(@"开始扫描外设服务的特征 %@...",peripheral.name);
+    
+}
+//扫描到特征
+-(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
+    if (error)
+    {
+        NSLog(@"扫描外设的特征失败！%@->%@-> %@",peripheral.name,service.UUID, [error localizedDescription]);
+        self.title = @"find characteristics error.";
+        return;
+    }
+    
+    NSLog(@"扫描到外设服务特征有：%@->%@->%@",peripheral.name,service.UUID,service.characteristics);
+    //获取Characteristic的值
+    
+    for (CBCharacteristic *characteristic in service.characteristics){
+        {
+            if ([characteristic.UUID.UUIDString isEqualToString:@"B381"]) {
+                [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            }
+            //[peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            //NSLog(@"%@",characteristic.UUID.UUIDString);
+        }
+     
+    }
+}
+
+//扫描到具体的值
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
+{
+    if ([characteristic.UUID.UUIDString isEqualToString:@"B381"]) {
+        NSLog(@"%@",characteristic.value);
+        NSString* _v = (NSString *)characteristic.value;
+        _count = (NSInteger)[_v characterAtIndex:8];
+        NSLog(@"value is %ld",_count);
     }
 }
 /*

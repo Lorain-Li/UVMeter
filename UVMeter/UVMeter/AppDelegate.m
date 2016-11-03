@@ -23,8 +23,6 @@
     //导航控制器和工具栏都是视图公用的，但是其中的元素是属于视图的，另外他们的属性亦由视图设置
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:_toolBarPage];
     [self.window makeKeyAndVisible];
-    //BleConnect* ble = [[BleConnect alloc] init];
-    //ble.delegate = self;
     return YES;
 }
 

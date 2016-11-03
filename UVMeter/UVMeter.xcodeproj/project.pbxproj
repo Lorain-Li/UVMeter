@@ -17,7 +17,6 @@
 		2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A51DC054FA00FDF183 /* rainbow.png */; };
 		2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B11DC0566A00FDF183 /* MainPage.m */; };
 		2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6FD1DC0B24700FDF183 /* BleConnect.m */; };
-		2699B0391DC7231900AFC73E /* BleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2699B0381DC7231900AFC73E /* BleCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 		2669E6B11DC0566A00FDF183 /* MainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPage.m; sourceTree = "<group>"; };
 		2669E6FC1DC0B24700FDF183 /* BleConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleConnect.h; sourceTree = "<group>"; };
 		2669E6FD1DC0B24700FDF183 /* BleConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleConnect.m; sourceTree = "<group>"; };
-		2699B0371DC7231900AFC73E /* BleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleCell.h; sourceTree = "<group>"; };
-		2699B0381DC7231900AFC73E /* BleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +106,6 @@
 			children = (
 				2669E6B01DC0566A00FDF183 /* MainPage.h */,
 				2669E6B11DC0566A00FDF183 /* MainPage.m */,
-				2699B0371DC7231900AFC73E /* BleCell.h */,
-				2699B0381DC7231900AFC73E /* BleCell.m */,
 				2669E6711DC054CB00FDF183 /* AppDelegate.h */,
 				2669E6721DC054CB00FDF183 /* AppDelegate.m */,
 				2669E67A1DC054CB00FDF183 /* Assets.xcassets */,
@@ -216,6 +211,7 @@
 				TargetAttributes = {
 					2669E66A1DC054CB00FDF183 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = X4ZPRVLV34;
 					};
 					2669E6831DC054CB00FDF183 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -284,7 +280,6 @@
 			files = (
 				2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */,
 				2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */,
-				2699B0391DC7231900AFC73E /* BleCell.m in Sources */,
 				2669E6701DC054CB00FDF183 /* main.m in Sources */,
 				2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */,
 			);
@@ -415,8 +410,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X4ZPRVLV34;
 				INFOPLIST_FILE = UVMeter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,8 +423,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X4ZPRVLV34;
 				INFOPLIST_FILE = UVMeter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinoux.UVMeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";

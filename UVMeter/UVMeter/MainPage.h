@@ -7,17 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface MainPage : UIViewController
-<UITableViewDelegate,UITableViewDataSource>
+<UITableViewDelegate,UITableViewDataSource,CBCentralManagerDelegate,CBPeripheralDelegate>
 {
-    int _count;
+    NSInteger _count;
     UIView* arrows;
     UILabel* updatetime;
     NSDateFormatter* formatter;
     CGFloat _screenH,_screenW;
     NSTimer* _tpTimer;
     NSMutableArray* _bletab;
+    UITableView* _blelist;
+    CBCentralManager* _manager;
+    CBPeripheral* _periheral;
+    UIBarButtonItem* _bluetooth;
 }
 
 #define TABVIEWCELL_HIGHT   (50)
