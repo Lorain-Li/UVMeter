@@ -39,12 +39,15 @@
     _uvIndex.text = @"UV Index";
     _uvIndex.textColor = [UIColor yellowColor];
     _uvIndex.textAlignment = NSTextAlignmentCenter;
+    _bandstd.text = @"连接断开";
+    _bandstd.textColor = [UIColor yellowColor];
+    _bandstd.textAlignment = NSTextAlignmentCenter;
     _date.text = @"Date";
     _date.textColor = [UIColor yellowColor];
     _date.textAlignment = NSTextAlignmentCenter;
     _uvIndex.frame = CGRectMake(_screenW/2-50, _screenH/10, 100, 30);
     _date.frame = CGRectMake(_screenW/2-125, _screenH*6/12+10, 250, 30);
-    _bandstd.frame =CGRectMake(_screenW/2-50, _screenH/10, 100, 30);
+    _bandstd.frame =CGRectMake(_screenW/2-125, _screenH*6/12-30, 250, 30);
     
     UIImage* _bspng = [UIImage imageNamed:@"bs.png"];
     UIImage* _blockpng = [UIImage imageNamed:@"block.png"];
@@ -76,7 +79,7 @@
     [self.view addSubview:_arrowsview];
     [self.view addSubview:_uvIndex];
     [self.view addSubview:_date];
-    
+    [self.view addSubview:_bandstd];
      [self rotateImageView:0];
     
     _manager = [[CBCentralManager alloc] init];
@@ -113,6 +116,7 @@
         _periheral = [_user objectForKey:@"band"];
         if (_periheral != nil) {
             [_manager connectPeripheral:_periheral options:nil];
+            _bandstd.text = @"正在连接";
         }
     }
 }
@@ -138,6 +142,7 @@
     if (_periheral == nil) {
         if ([_manager isScanning]) {
             [_manager stopScan];
+            
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationDuration:0.5];
             _bletitle.alpha = 0;
@@ -151,6 +156,7 @@
             _bluetooth.title = @"搜索设备";
             _bletab = [[NSMutableArray alloc] init];
             _periheral = nil;
+            _bandstd.text = @"连接断开";
         }
         else
         {
@@ -158,6 +164,7 @@
             _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.5F];
             _alpha.tag = 10;
             _bluetooth.title = @"取消";
+            _bandstd.text = @"搜索设备";
             _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
             _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
             _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
@@ -201,6 +208,7 @@
         _bluetooth.title = @"搜索设备";
         _bletab = [[NSMutableArray alloc] init];
         _periheral = nil;
+        _bandstd.text = @"连接断开";
         NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
         [_user setObject:nil forKey:@"band"];
     }
@@ -220,27 +228,10 @@
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    BleCell* _cell = [[BleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"T_T"];
-    UIView* _background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
-    UILabel* _showname = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, TABVIEWCELL_WIDTH-10, 35)];
-    UILabel* _showadr = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, TABVIEWCELL_WIDTH-10, 15)];
-    _background.layer.cornerRadius = 10;
-    _showname.text = [_bletab objectAtIndex:indexPath.row];
-    NSLog(@"%@",_showname.text);
-    _showadr.text = @"10:11:12:13:14:1E";
-    _showname.font = [UIFont systemFontOfSize:24];
-    _showadr.font = [UIFont systemFontOfSize:12];
-    
-    _showadr.textColor = [UIColor grayColor];
-    [_cell addSubview:_background];
-    [_cell addSubview:_showname];
-    [_cell addSubview:_showadr];
-*/
-    UITableViewCell* _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"T_T"];
+
+    UITableViewCell* _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"T_T"];
     CBPeripheral* _perh = [_bletab objectAtIndex:indexPath.row];
     _cell.textLabel.text = _perh.name;
-    _cell.detailTextLabel.text = @"xx:xx:xx:xx:xx:xx";
     return _cell;
 }
 
@@ -311,15 +302,15 @@
     [peripheral discoverServices:nil];          //扫描服务
     NSLog(@"开始扫描外设服务 %@...",peripheral.name);
     _bluetooth.title = @"断开连接";
+    _bandstd.text = @"连接成功";
     //NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
-    //[_user setObject:_periheral forKey:@"band"];
+    //[_user setObject:_tmpA forKey:@"band"];
 }
 //连接外设失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"连接到外设 失败！%@ %@",[peripheral name],[error localizedDescription]);
     self.title = @"连接失败";
-    
 }
 
 //扫描到服务
