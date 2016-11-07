@@ -16,7 +16,6 @@
 		2669E6A81DC054FA00FDF183 /* bs.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A41DC054FA00FDF183 /* bs.png */; };
 		2669E6A91DC054FA00FDF183 /* rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2669E6A51DC054FA00FDF183 /* rainbow.png */; };
 		2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6B11DC0566A00FDF183 /* MainPage.m */; };
-		2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2669E6FD1DC0B24700FDF183 /* BleConnect.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +51,6 @@
 		2669E6A51DC054FA00FDF183 /* rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rainbow.png; sourceTree = "<group>"; };
 		2669E6B01DC0566A00FDF183 /* MainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPage.h; sourceTree = "<group>"; };
 		2669E6B11DC0566A00FDF183 /* MainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPage.m; sourceTree = "<group>"; };
-		2669E6FC1DC0B24700FDF183 /* BleConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleConnect.h; sourceTree = "<group>"; };
-		2669E6FD1DC0B24700FDF183 /* BleConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleConnect.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +81,6 @@
 		2669E6621DC054CB00FDF183 = {
 			isa = PBXGroup;
 			children = (
-				2669E6FB1DC0B24700FDF183 /* ble */,
 				2669E6A11DC054FA00FDF183 /* png */,
 				2669E66D1DC054CB00FDF183 /* UVMeter */,
 				2669E66C1DC054CB00FDF183 /* Products */,
@@ -133,15 +129,6 @@
 				2669E6A51DC054FA00FDF183 /* rainbow.png */,
 			);
 			path = png;
-			sourceTree = "<group>";
-		};
-		2669E6FB1DC0B24700FDF183 /* ble */ = {
-			isa = PBXGroup;
-			children = (
-				2669E6FC1DC0B24700FDF183 /* BleConnect.h */,
-				2669E6FD1DC0B24700FDF183 /* BleConnect.m */,
-			);
-			path = ble;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2669E6731DC054CB00FDF183 /* AppDelegate.m in Sources */,
-				2669E6FE1DC0B24700FDF183 /* BleConnect.m in Sources */,
 				2669E6701DC054CB00FDF183 /* main.m in Sources */,
 				2669E6B21DC0566A00FDF183 /* MainPage.m in Sources */,
 			);

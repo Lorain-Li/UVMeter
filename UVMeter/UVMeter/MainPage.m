@@ -35,6 +35,7 @@
  
     UILabel* _uvIndex = [[UILabel alloc] init];
     UILabel* _date = [[UILabel alloc] init];
+    _bandstd = [[UILabel alloc] init];
     _uvIndex.text = @"UV Index";
     _uvIndex.textColor = [UIColor yellowColor];
     _uvIndex.textAlignment = NSTextAlignmentCenter;
@@ -43,6 +44,7 @@
     _date.textAlignment = NSTextAlignmentCenter;
     _uvIndex.frame = CGRectMake(_screenW/2-50, _screenH/10, 100, 30);
     _date.frame = CGRectMake(_screenW/2-125, _screenH*6/12+10, 250, 30);
+    _bandstd.frame =CGRectMake(_screenW/2-50, _screenH/10, 100, 30);
     
     UIImage* _bspng = [UIImage imageNamed:@"bs.png"];
     UIImage* _blockpng = [UIImage imageNamed:@"block.png"];
@@ -106,6 +108,13 @@
 {
     [super viewDidAppear:animated];
     _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+    if (_periheral == nil) {
+        NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
+        _periheral = [_user objectForKey:@"band"];
+        if (_periheral != nil) {
+            [_manager connectPeripheral:_periheral options:nil];
+        }
+    }
 }
 
 -(void)steper
@@ -192,6 +201,8 @@
         _bluetooth.title = @"搜索设备";
         _bletab = [[NSMutableArray alloc] init];
         _periheral = nil;
+        NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
+        [_user setObject:nil forKey:@"band"];
     }
 }
 
@@ -300,6 +311,8 @@
     [peripheral discoverServices:nil];          //扫描服务
     NSLog(@"开始扫描外设服务 %@...",peripheral.name);
     _bluetooth.title = @"断开连接";
+    //NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
+    //[_user setObject:_periheral forKey:@"band"];
 }
 //连接外设失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error

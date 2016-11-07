@@ -17,6 +17,7 @@
     UIView* _bleback;
     UIView* _bletitle;
     UILabel* updatetime;
+    UILabel* _bandstd;
     NSDateFormatter* formatter;
     CGFloat _screenH,_screenW;
     NSTimer* _tpTimer;

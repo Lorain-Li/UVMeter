@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BleConnect.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
