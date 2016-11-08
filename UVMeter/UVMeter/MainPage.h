@@ -26,6 +26,7 @@
     CBCentralManager* _manager;
     CBPeripheral* _periheral;
     UIBarButtonItem* _bluetooth;
+    CBCharacteristic* _batc;
 }
 
 #define TABVIEWCELL_HIGHT   (50)

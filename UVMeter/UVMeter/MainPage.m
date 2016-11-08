@@ -110,7 +110,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _tpTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(steper) userInfo:nil repeats:YES];
+    _tpTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(steper) userInfo:nil repeats:YES];
     if (_periheral == nil) {
         NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
         _periheral = [_user objectForKey:@"band"];
@@ -346,8 +346,12 @@
             if ([characteristic.UUID.UUIDString isEqualToString:@"B381"]) {
                 [peripheral setNotifyValue:YES forCharacteristic:characteristic];
             }
+            if ([characteristic.UUID.UUIDString isEqualToString:@"2A19"]) {
+                _batc = characteristic;
+                [peripheral readValueForCharacteristic:characteristic];
+            }
             //[peripheral setNotifyValue:YES forCharacteristic:characteristic];
-            //NSLog(@"%@",characteristic.UUID.UUIDString);
+            NSLog(@"fined UUID:%@",characteristic.UUID.UUIDString);
         }
      
     }
@@ -360,7 +364,34 @@
         NSLog(@"%@",characteristic.value);
         const char* _v = [characteristic.value bytes];
         _count = _v[3];
+        if ((_v[0] & 0x80) == 0x80) {
+            _bandstd.text = @"正在充电";
+        }
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updatebat) userInfo:nil repeats:NO];
         NSLog(@"value is %ld",_count);
+    }
+    if ([characteristic.UUID.UUIDString isEqualToString:@"2A19"]) {
+        const char* _v = [characteristic.value bytes];
+        NSInteger bat = _v[0];
+        if (bat < 10) {
+            NSString* _str = [NSString stringWithFormat:@"电量过低：%ld%%",bat];
+            _bandstd.text = _str;
+        }
+        else
+        {
+            NSString* _str = [NSString stringWithFormat:@"手环电量：%ld%%",bat];
+            _bandstd.text = _str;
+        }
+        NSLog(@"bat value:%ld%%",bat);
+    }
+}
+
+-(void)updatebat
+{
+    if (_periheral != nil) {
+        if (_batc != nil) {
+            [_periheral readValueForCharacteristic:_batc];
+        }
     }
 }
 /*
