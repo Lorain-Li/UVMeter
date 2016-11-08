@@ -20,6 +20,7 @@
     _screenH = [[UIScreen mainScreen] bounds].size.height;
     
     _bletab = [[NSMutableArray alloc] init];
+    _bleadv = [[NSMutableArray alloc] init];
     
     self.title = @" ";
     self.view.backgroundColor = [UIColor blackColor];
@@ -113,10 +114,15 @@
     _tpTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(steper) userInfo:nil repeats:YES];
     if (_periheral == nil) {
         NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
-        _periheral = [_user objectForKey:@"band"];
-        if (_periheral != nil) {
-            [_manager connectPeripheral:_periheral options:nil];
-            _bandstd.text = @"正在连接";
+        NSString* _STR = [_user objectForKey:@"band"];
+        NSLog(@"UUID STR:%@",_STR);
+        if (_STR != nil) {
+            if (_bandUUID != nil) {
+                [_manager scanForPeripheralsWithServices:nil options:nil];
+                _bandstd.text = @"正在连接";
+                _bluetooth.title = @"取消";
+                NSLog(@"band UUID:%@",_bandUUID);
+            }
         }
     }
 }
@@ -283,12 +289,21 @@
 
 //扫描到设备会进入方法
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    NSLog(@"扫描连接外设：%@ %@",peripheral.name,RSSI);
-    if (peripheral.name != nil) {
-        [_bletab addObject:peripheral];
-        NSLog(@"%@",peripheral.name);
-        NSLog(@"%@",advertisementData[CBAdvertisementDataManufacturerDataKey]);
-        [_blelist reloadData];
+    if (_bandSTR != nil) {
+        if ([_bandSTR isEqualToString:advertisementData[CBAdvertisementDataManufacturerDataKey]]) {
+            [_manager connectPeripheral:peripheral options:nil];
+        }
+    }
+    else
+    {
+        if (peripheral.name != nil) {
+            [_bletab addObject:peripheral];
+            [_bleadv addObject:advertisementData[CBAdvertisementDataManufacturerDataKey]];
+            NSLog(@"扫描到设备：%@ %@",peripheral.name,RSSI);
+            NSLog(@"identifer:%@",peripheral.identifier);
+            NSLog(@"manuf:%@",advertisementData[CBAdvertisementDataManufacturerDataKey]);
+            [_blelist reloadData];
+        }
     }
 }
 
@@ -296,15 +311,15 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     self.title = @"连接成功，扫描信息...";
-    NSLog(@"连接外设成功！%@",peripheral.name);
+    NSLog(@"连接: %@ 成功!",peripheral.name);
     _periheral = peripheral;
     [peripheral setDelegate:self];
-    [peripheral discoverServices:nil];          //扫描服务
-    NSLog(@"开始扫描外设服务 %@...",peripheral.name);
+    [peripheral discoverServices:nil];
     _bluetooth.title = @"断开连接";
     _bandstd.text = @"连接成功";
-    //NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
-    //[_user setObject:_tmpA forKey:@"band"];
+    NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
+    [_user setObject:_UUID forKey:@"band"];
+    NSLog(@"%@",[_user objectForKey:@"band"]);
 }
 //连接外设失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -322,12 +337,10 @@
     
         return;
     }
-    NSLog(@"扫描到外设服务：%@ -> %@",peripheral.name,peripheral.services);
+    NSLog(@"一级服务：\r\n%@",peripheral.services);
     for (CBService *service in peripheral.services) {
         [peripheral discoverCharacteristics:nil forService:service]; //扫描特征值
     }
-    NSLog(@"开始扫描外设服务的特征 %@...",peripheral.name);
-    
 }
 //扫描到特征
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error{
@@ -338,7 +351,7 @@
         return;
     }
     
-    NSLog(@"扫描到外设服务特征有：%@->%@->%@",peripheral.name,service.UUID,service.characteristics);
+    NSLog(@"二级服务:UUID:%@\r\n%@\r\n\r\n",service.UUID,service.characteristics);
     //获取Characteristic的值
     
     for (CBCharacteristic *characteristic in service.characteristics){
@@ -351,7 +364,6 @@
                 [peripheral readValueForCharacteristic:characteristic];
             }
             //[peripheral setNotifyValue:YES forCharacteristic:characteristic];
-            NSLog(@"fined UUID:%@",characteristic.UUID.UUIDString);
         }
      
     }

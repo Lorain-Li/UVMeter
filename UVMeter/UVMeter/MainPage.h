@@ -22,9 +22,11 @@
     CGFloat _screenH,_screenW;
     NSTimer* _tpTimer;
     NSMutableArray* _bletab;
+    NSMutableArray* _bleadv;
     UITableView* _blelist;
     CBCentralManager* _manager;
     CBPeripheral* _periheral;
+    NSString* _bandSTR;
     UIBarButtonItem* _bluetooth;
     CBCharacteristic* _batc;
 }
