@@ -112,19 +112,6 @@
 {
     [super viewDidAppear:animated];
     _tpTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(steper) userInfo:nil repeats:YES];
-    if (_periheral == nil) {
-        NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
-        NSString* _STR = [_user objectForKey:@"band"];
-        NSLog(@"UUID STR:%@",_STR);
-        if (_STR != nil) {
-            if (_bandUUID != nil) {
-                [_manager scanForPeripheralsWithServices:nil options:nil];
-                _bandstd.text = @"正在连接";
-                _bluetooth.title = @"取消";
-                NSLog(@"band UUID:%@",_bandUUID);
-            }
-        }
-    }
 }
 
 -(void)steper
@@ -162,6 +149,7 @@
             _bluetooth.title = @"搜索设备";
             _bletab = [[NSMutableArray alloc] init];
             _periheral = nil;
+            _bandSTR = nil;
             _bandstd.text = @"连接断开";
         }
         else
@@ -245,6 +233,8 @@
 {
     [_manager stopScan];
     [_manager connectPeripheral:[_bletab objectAtIndex:indexPath.row] options:nil];
+    _bandSTR = [_bleadv objectAtIndex:indexPath.row];
+    NSLog(@"selected manu:%@",_bandSTR);
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     _bletitle.alpha = 0;
@@ -262,6 +252,16 @@
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central{
     if (central.state==CBCentralManagerStatePoweredOn) {
         self.title = @"蓝牙已就绪";
+        if (_periheral == nil) {
+            NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
+            _bandSTR = [_user objectForKey:@"band"];
+            NSLog(@"read:%@",_bandSTR);
+            if (_bandSTR != nil) {
+                [_manager scanForPeripheralsWithServices:nil options:nil];
+                _bandstd.text = @"正在连接";
+                _bluetooth.title = @"取消";
+            }
+        }
     }else
     {
         self.title = @"蓝牙未准备好";
@@ -290,15 +290,20 @@
 //扫描到设备会进入方法
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
     if (_bandSTR != nil) {
-        if ([_bandSTR isEqualToString:advertisementData[CBAdvertisementDataManufacturerDataKey]]) {
+        if ([_bandSTR isEqualToString:[NSString stringWithFormat:@"%@",advertisementData[CBAdvertisementDataManufacturerDataKey]]]) {
+            [_manager stopScan];
+            _periheral = peripheral;
             [_manager connectPeripheral:peripheral options:nil];
         }
+        NSLog(@"扫描到设备：%@ %@",peripheral.name,RSSI);
+        NSLog(@"identifer:%@",peripheral.identifier);
+        NSLog(@"manuf:%@",advertisementData[CBAdvertisementDataManufacturerDataKey]);
     }
     else
     {
-        if (peripheral.name != nil) {
+        if ((peripheral.name != nil)&&(advertisementData[CBAdvertisementDataManufacturerDataKey]!=nil)) {
             [_bletab addObject:peripheral];
-            [_bleadv addObject:advertisementData[CBAdvertisementDataManufacturerDataKey]];
+            [_bleadv addObject:[NSString stringWithFormat:@"%@",advertisementData[CBAdvertisementDataManufacturerDataKey]]];
             NSLog(@"扫描到设备：%@ %@",peripheral.name,RSSI);
             NSLog(@"identifer:%@",peripheral.identifier);
             NSLog(@"manuf:%@",advertisementData[CBAdvertisementDataManufacturerDataKey]);
@@ -318,8 +323,8 @@
     _bluetooth.title = @"断开连接";
     _bandstd.text = @"连接成功";
     NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
-    [_user setObject:_UUID forKey:@"band"];
-    NSLog(@"%@",[_user objectForKey:@"band"]);
+    [_user setObject:_bandSTR forKey:@"band"];
+    NSLog(@"stored:%@",[_user objectForKey:@"band"]);
 }
 //连接外设失败
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
