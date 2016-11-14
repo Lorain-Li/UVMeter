@@ -380,7 +380,8 @@
     if ([characteristic.UUID.UUIDString isEqualToString:@"B381"]) {
         NSLog(@"%@",characteristic.value);
         const char* _v = [characteristic.value bytes];
-        _count = _v[3];
+        NSInteger value = ((_v[2] << 8) | _v[3]) & 0x0000ffff;
+        _count = (NSInteger)(0.001234 * ( 0.11111 * value * value + value));
         if ((_v[0] & 0x80) == 0x80) {
             _bandstd.text = @"正在充电";
         }
