@@ -155,7 +155,7 @@
         else
         {
             UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
-            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.5F];
+            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.6F];
             _alpha.tag = 10;
             _bluetooth.title = @"取消";
             _bandstd.text = @"搜索设备";
