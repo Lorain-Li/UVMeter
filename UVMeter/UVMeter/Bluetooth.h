@@ -12,8 +12,13 @@
 
 @optional
 - (void) bluetoothIsReady;
-- (void) didDiscoverNewPeripheral:(CBPeripheral *) peripheral;
-
+- (void) didDiscoverNewPeripheral;
+- (void) changeStateScanning;
+- (void) changeStateConnecting;
+- (void) changeStateConnected;
+- (void) changeStateDisconnect;
+- (void) uvbandMsg:(NSString *)msg;
+- (void) uvIndexValue:(float)index;
 @end
 
 
@@ -24,16 +29,17 @@
 @property (retain,nonatomic) id<BluetoothDelegate> delegate;
 @property (retain,nonatomic) NSMutableArray     *bluelist;
 @property (retain,nonatomic) NSMutableArray     *advlist;
-@property (retain,nonatomic) NSMutableArray     *RSSIs;
 @property (retain,nonatomic) CBCentralManager   *manager;
 @property (retain,nonatomic) CBPeripheral       *slave;
-@property (retain,nonatomic) NSMutableArray     *primaryService;
-@property (retain,nonatomic) NSMutableArray     *services;
+@property (retain,nonatomic) CBCharacteristic   *batc;
+@property (retain,nonatomic) NSUUID             *boundID;
 - (void) startScan;
 - (void) stopScan;
-- (void) clearnlist;
+- (void) cleanlist;
+- (void) cleanBoundID;
 
--(void)connectToPeripheral:(CBPeripheral*)peripheral;
+-(void)connectPeripheral:(CBPeripheral*)peripheral;
+-(void)cancelConnect;
 
 - (instancetype) initWithDelegate:(id<BluetoothDelegate>)delegate;
 @end

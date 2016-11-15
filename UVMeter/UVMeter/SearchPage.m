@@ -18,25 +18,26 @@
     CGFloat LIST_BOX_ORGX = sx/2 - LIST_BOX_WIDTH/2;
     CGFloat LIST_BOX_ORGY = sy/2 - LIST_BOX_HEIGHT/2;
     
-    self.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:1.0F];
+    self.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.6F];
     
     self.listBox = [[UIView alloc] initWithFrame:CGRectMake(LIST_BOX_ORGX, LIST_BOX_ORGY, LIST_BOX_WIDTH  , LIST_BOX_HEIGHT)];
     self.listTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, LIST_BOX_WIDTH, LIST_CELL_HEIGHT)];
     self.blueView = [[UITableView alloc] initWithFrame:CGRectMake(0, LIST_CELL_HEIGHT, LIST_BOX_WIDTH, 3 * LIST_CELL_HEIGHT)];
     
+    self.listBox.backgroundColor = [UIColor whiteColor];
     self.listBox.layer.cornerRadius = 20;
-    self.listBox.alpha = 1;
+    self.listBox.alpha = 0;
     
     self.listTitle.text = @"选择蓝牙设备";
     self.listTitle.font = [UIFont systemFontOfSize:20];
     self.listTitle.textAlignment = NSTextAlignmentCenter;
     self.listTitle.layer.cornerRadius = 20;
-    self.listTitle.alpha = 1;
+    self.listTitle.alpha = 0;
     
     self.blueView.delegate = self;
     self.blueView.dataSource = self;
     self.blueView.layer.cornerRadius = 20;
-    self.blueView.alpha = 1;
+    self.blueView.alpha = 0;
     
     [self.listBox addSubview:self.listTitle];
     [self.listBox addSubview:self.blueView];
@@ -47,20 +48,15 @@
 -(void) showWithAnimation:(BOOL)ani
 {
     if ((ani == TRUE)|(ani == YES)) {
+        [self.blueView reloadData];
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
-        self.alpha = 0.6;
-        self.listBox.alpha = 0;
-        self.listTitle.alpha = 0;
-        self.blueView.alpha = 0;
+        self.alpha = 1;
+        self.listBox.alpha = 1;
+        self.listTitle.alpha = 1;
+        self.blueView.alpha = 1;
         [UIView commitAnimations];
-    }
-    else
-    {
-        self.alpha = 0.6;
-        self.listBox.alpha = 0;
-        self.listTitle.alpha = 0;
-        self.blueView.alpha = 0;
+        NSLog(@"appear");
     }
 }
 
@@ -69,18 +65,13 @@
     if ((ani == TRUE)|(ani == YES)) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
-        self.alpha = 1;
-        self.listBox.alpha = 1;
-        self.listTitle.alpha = 1;
-        self.blueView.alpha = 1;
+        self.alpha = 0;
+        self.listBox.alpha = 0;
+        self.listTitle.alpha = 0;
+        self.blueView.alpha = 0;
         [UIView commitAnimations];
-    }
-    else
-    {
-        self.alpha = 1;
-        self.listBox.alpha = 1;
-        self.listTitle.alpha = 1;
-        self.blueView.alpha = 1;
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(removeFromSuperview) userInfo:nil repeats:NO];
+        NSLog(@"disappear");
     }
 }
 
@@ -91,9 +82,10 @@
     return self.blue.bluelist.count;
 }
 
+//设置单元格高度
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return LIST_CELL_HEIGHT;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,15 +113,16 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.blue.manager stopScan];
-    [self.blue.manager connectPeripheral:[self.blue.bluelist objectAtIndex:indexPath.row] options:nil];
-    NSDictionary *advData = [self.blue.advlist objectAtIndex:indexPath.row];
-    NSLog(@"selected manu:%@",advData[CBAdvertisementDataManufacturerDataKey]);
+    [self.blue stopScan];
+    [self.blue connectPeripheral:[self.blue.bluelist objectAtIndex:indexPath.row]];
     [self hideWithAnimation:TRUE];
     [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(removeFromSuperview) userInfo:nil repeats:NO];
+    
+     NSDictionary *advData = [self.blue.advlist objectAtIndex:indexPath.row];
+     NSLog(@"selected manu:%@",advData[CBAdvertisementDataManufacturerDataKey]);
 }
 
--(void)didDiscoverNewPeripheral:(CBPeripheral *)peripheral
+-(void)didDiscoverNewPeripheral
 {
     [self.blueView reloadData];
 }

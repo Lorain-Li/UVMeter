@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Bluetooth.h"
+
+@protocol SearchPageDelegate <NSObject>
+
+@optional
+- (void) didSelectACell;
+@end
+
 @interface SearchPage : UIView
 <UITableViewDelegate,UITableViewDataSource,BluetoothDelegate>
-
+@property (retain,nonatomic) id<SearchPageDelegate> delegate;
 @property (retain,nonatomic) UIView   *listBox;
 @property (retain,nonatomic) UILabel    *listTitle;
 @property (retain,nonatomic) UITableView   *blueView;
@@ -21,6 +28,6 @@
 - (void) hideWithAnimation:(BOOL) ani;
 @end
 
-#define LIST_BOX_WIDTH      80
-#define LIST_BOX_HEIGHT     80
-#define LIST_CELL_HEIGHT    20
+#define LIST_BOX_WIDTH      200
+#define LIST_BOX_HEIGHT     160
+#define LIST_CELL_HEIGHT    40
