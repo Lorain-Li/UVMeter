@@ -26,14 +26,18 @@
     UITableView* _blelist;
     CBCentralManager* _manager;
     CBPeripheral* _periheral;
+    NSInteger   status;
     NSString* _bandSTR;
     UIBarButtonItem* _bluetooth;
     CBCharacteristic* _batc;
+    NSInteger  batcount;
 }
 
 #define TABVIEWCELL_HIGHT   (50)
 #define TABVIEWCELL_WIDTH   (240)
 #define TABVIEW_HIGHT       (200)
 #define TABVIEW_WIDTH       (240)
-
+#define DISCONNECTED        0
+#define CONNECTED           1
+#define CONNECTTING         2
 @end

@@ -34,54 +34,6 @@
     self.toolbarItems = _buttonA;
     self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
  
-    UILabel* _uvIndex = [[UILabel alloc] init];
-    UILabel* _date = [[UILabel alloc] init];
-    _bandstd = [[UILabel alloc] init];
-    _uvIndex.text = @"UV Index";
-    _uvIndex.textColor = [UIColor yellowColor];
-    _uvIndex.textAlignment = NSTextAlignmentCenter;
-    _bandstd.text = @"连接断开";
-    _bandstd.textColor = [UIColor yellowColor];
-    _bandstd.textAlignment = NSTextAlignmentCenter;
-    _date.text = @"Date";
-    _date.textColor = [UIColor yellowColor];
-    _date.textAlignment = NSTextAlignmentCenter;
-    _uvIndex.frame = CGRectMake(_screenW/2-50, _screenH/10, 100, 30);
-    _date.frame = CGRectMake(_screenW/2-125, _screenH*6/12+10, 250, 30);
-    _bandstd.frame =CGRectMake(_screenW/2-125, _screenH*6/12-30, 250, 30);
-    
-    UIImage* _bspng = [UIImage imageNamed:@"bs.png"];
-    UIImage* _blockpng = [UIImage imageNamed:@"block.png"];
-    UIImage* _arrowspng = [UIImage imageNamed:@"arrows.png"];
-    UIImage* _rainbowpng = [UIImage imageNamed:@"rainbow.png"];
-    
-    UIImageView* _bsview = [[UIImageView alloc] initWithImage:_bspng];
-    UIImageView* _blockview = [[UIImageView alloc] initWithImage:_blockpng];
-    UIImageView* _arrowsview = [[UIImageView alloc] initWithImage:_arrowspng];
-    UIImageView* _rainbowview = [[UIImageView alloc] initWithImage:_rainbowpng];
-    
-    _bsview.frame = CGRectMake(_screenW/16, _screenH/19, _screenW/8, _screenH/11);
-    _blockview.frame = CGRectMake(10, _screenH*3/5, _screenW - 20, _screenH*4/11);
-    _arrowsview.frame = CGRectMake(_screenW/2-10, _screenH*4/11, 20, _screenH/6);
-    _rainbowview.frame = CGRectMake(5,_screenH/7, _screenW-10, _screenH*4/11);
-    
-    arrows = _arrowsview;
-    updatetime = _date;
-    arrows.layer.anchorPoint = CGPointMake(0.6, 0.96);
-    NSDateFormatter* _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateStyle:NSDateFormatterShortStyle];
-    [_formatter setTimeStyle:NSDateFormatterShortStyle];
-    formatter = _formatter;
-    _count = 1;
-   
-    [self.view addSubview:_bsview];
-    [self.view addSubview:_blockview];
-    [self.view addSubview:_rainbowview];
-    [self.view addSubview:_arrowsview];
-    [self.view addSubview:_uvIndex];
-    [self.view addSubview:_date];
-    [self.view addSubview:_bandstd];
-     [self rotateImageView:0];
     
     _manager = [[CBCentralManager alloc] init];
     _manager.delegate = self;
@@ -154,20 +106,8 @@
         }
         else
         {
-            UIView* _alpha = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screenW, _screenH)];
-            _alpha.backgroundColor = [UIColor colorWithRed:40/255.0F green:40/255.0F blue:40/255.0F alpha:0.6F];
-            _alpha.tag = 10;
-            _bluetooth.title = @"取消";
-            _bandstd.text = @"搜索设备";
-            _bleback = [[UIView alloc] initWithFrame:CGRectMake(_screenW/2 - TABVIEW_WIDTH/2, _screenH/2 - TABVIEW_HIGHT/2, TABVIEW_WIDTH  , TABVIEW_HIGHT)];
-            _bletitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TABVIEWCELL_WIDTH, TABVIEWCELL_HIGHT)];
-            _blelist = [[UITableView alloc] initWithFrame:CGRectMake(0, TABVIEWCELL_HIGHT, TABVIEW_WIDTH, 3*TABVIEWCELL_HIGHT) style:UITableViewStylePlain];
-            UILabel* _labtitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, TABVIEWCELL_WIDTH - 40, TABVIEWCELL_HIGHT)];
+     
             
-            _labtitle.text = @"选择蓝牙设备";
-            _labtitle.font = [UIFont systemFontOfSize:20];
-            _labtitle.textAlignment = NSTextAlignmentCenter;
-            _bletitle.layer.cornerRadius = 20;
             _bletitle.alpha = 0;
             
             
@@ -294,6 +234,8 @@
             [_manager stopScan];
             _periheral = peripheral;
             [_manager connectPeripheral:peripheral options:nil];
+            [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(connectExtended) userInfo:nil repeats:NO];
+            status = CONNECTTING;
         }
         NSLog(@"扫描到设备：%@ %@",peripheral.name,RSSI);
         NSLog(@"identifer:%@",peripheral.identifier);
@@ -322,6 +264,7 @@
     [peripheral discoverServices:nil];
     _bluetooth.title = @"断开连接";
     _bandstd.text = @"连接成功";
+    status = CONNECTED;
     NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
     [_user setObject:_bandSTR forKey:@"band"];
     NSLog(@"stored:%@",[_user objectForKey:@"band"]);
@@ -381,7 +324,7 @@
         NSLog(@"%@",characteristic.value);
         const char* _v = [characteristic.value bytes];
         NSInteger value = ((_v[2] << 8) | _v[3]) & 0x0000ffff;
-        _count = (NSInteger)(0.001234 * ( 0.11111 * value * value + value));
+        _count = (NSInteger)(0.0187 * ( 0.00391 * value * value + value));
         if ((_v[0] & 0x80) == 0x80) {
             _bandstd.text = @"正在充电";
         }
