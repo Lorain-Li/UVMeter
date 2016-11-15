@@ -10,7 +10,7 @@
 
 @implementation SearchPage
 
--(void)createSubView
+-(void)createSubViews
 {
     CGFloat sx = self.bounds.size.width;
     CGFloat sy = self.bounds.size.height;

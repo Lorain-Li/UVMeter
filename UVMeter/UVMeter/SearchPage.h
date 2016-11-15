@@ -16,7 +16,7 @@
 @property (retain,nonatomic) UITableView   *blueView;
 @property (retain,nonatomic) Bluetooth      *blue;
 
-- (void) createSubView;
+- (void) createSubViews;
 - (void) showWithAnimation:(BOOL) ani;
 - (void) hideWithAnimation:(BOOL) ani;
 @end

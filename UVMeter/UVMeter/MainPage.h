@@ -7,37 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
-
+#import "Bluetooth.h"
+#import "BasePage.h"
+#import "SearchPage.h"
 @interface MainPage : UIViewController
-<UITableViewDelegate,UITableViewDataSource,CBCentralManagerDelegate,CBPeripheralDelegate>
-{
-    NSInteger _count;
-    UIView* arrows;
-    UIView* _bleback;
-    UIView* _bletitle;
-    UILabel* updatetime;
-    UILabel* _bandstd;
-    NSDateFormatter* formatter;
-    CGFloat _screenH,_screenW;
-    NSTimer* _tpTimer;
-    NSMutableArray* _bletab;
-    NSMutableArray* _bleadv;
-    UITableView* _blelist;
-    CBCentralManager* _manager;
-    CBPeripheral* _periheral;
-    NSInteger   status;
-    NSString* _bandSTR;
-    UIBarButtonItem* _bluetooth;
-    CBCharacteristic* _batc;
-    NSInteger  batcount;
-}
+@property (retain,nonatomic) BasePage       *baseView;
+@property (retain,nonatomic) SearchPage     *searchView;
+@property (retain,nonatomic) UIBarButtonItem    *button;
 
-#define TABVIEWCELL_HIGHT   (50)
-#define TABVIEWCELL_WIDTH   (240)
-#define TABVIEW_HIGHT       (200)
-#define TABVIEW_WIDTH       (240)
-#define DISCONNECTED        0
-#define CONNECTED           1
-#define CONNECTTING         2
 @end

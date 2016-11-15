@@ -16,20 +16,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _screenW = [[UIScreen mainScreen] bounds].size.width;
-    _screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGRect rect = [UIScreen mainScreen].bounds;
+
+    self.baseView = [[BasePage alloc] initWithFrame:rect];
+    self.searchView = [[SearchPage alloc] initWithFrame:rect];
+    [self.baseView createSubViews];
+    [self.searchView createSubViews];
     
-    _bletab = [[NSMutableArray alloc] init];
-    _bleadv = [[NSMutableArray alloc] init];
-    
-    self.title = @" ";
+    [self.view addSubview:self.baseView];
+
     self.view.backgroundColor = [UIColor blackColor];
-    _bluetooth = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
+    self.button = [[UIBarButtonItem alloc] initWithTitle:@"搜索设备" style:UIBarButtonItemStyleDone target:self action:@selector(pressSearch)];
 
     //添加占位按钮
     UIBarButtonItem* _space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 
-    NSArray* _buttonA = [[NSArray alloc] initWithObjects:_space,_bluetooth,_space,nil];
+    NSArray* _buttonA = [[NSArray alloc] initWithObjects:_space,self.button,_space,nil];
     //将按钮添加到工具栏
     self.toolbarItems = _buttonA;
     self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
@@ -98,7 +100,7 @@
             [UIView setAnimationDelay:0.5];
             [[self.view viewWithTag:10] removeFromSuperview];
             [UIView commitAnimations];
-            _bluetooth.title = @"搜索设备";
+            self.button.title = @"搜索设备";
             _bletab = [[NSMutableArray alloc] init];
             _periheral = nil;
             _bandSTR = nil;
@@ -139,7 +141,7 @@
     }else
     {
         [_manager cancelPeripheralConnection:_periheral];
-        _bluetooth.title = @"搜索设备";
+        self.button.title = @"搜索设备";
         _bletab = [[NSMutableArray alloc] init];
         _periheral = nil;
         _bandstd.text = @"连接断开";
@@ -199,7 +201,7 @@
             if (_bandSTR != nil) {
                 [_manager scanForPeripheralsWithServices:nil options:nil];
                 _bandstd.text = @"正在连接";
-                _bluetooth.title = @"取消";
+                self.button.title = @"取消";
             }
         }
     }else
@@ -262,7 +264,7 @@
     _periheral = peripheral;
     [peripheral setDelegate:self];
     [peripheral discoverServices:nil];
-    _bluetooth.title = @"断开连接";
+    self.button.title = @"断开连接";
     _bandstd.text = @"连接成功";
     status = CONNECTED;
     NSUserDefaults* _user = [NSUserDefaults standardUserDefaults];
