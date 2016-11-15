@@ -80,7 +80,7 @@
     self.UVband.text = str;
 }
 
--(void)rotateImageView:(NSInteger)index
+-(void)rotateImageView:(float)index
 {
     self.arrow.layer.transform = CATransform3DMakeRotation(-M_PI*0.45+(M_PI*0.9*index/16.0), 0, 0, 1);
 }

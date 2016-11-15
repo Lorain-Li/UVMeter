@@ -16,5 +16,5 @@
 
 - (void)createSubViews;
 - (void)updateUVband:(NSString *)str;
-- (void)rotateImageView:(NSInteger)index;
+- (void)rotateImageView:(float)index;
 @end

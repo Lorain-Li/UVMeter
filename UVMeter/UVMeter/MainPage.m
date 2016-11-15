@@ -134,6 +134,16 @@
     self.baseView.UVband.text = @"连接断开";
     self.button.title = @"搜索设备";
 }
+
+-(void)uvbandMsg:(NSString *)msg
+{
+    [self.baseView updateUVband:msg];
+}
+
+-(void)uvIndexValue:(float)index
+{
+    [self.baseView rotateImageView:index];
+}
 /*
 #pragma mark - Navigation
 
