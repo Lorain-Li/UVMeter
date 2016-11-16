@@ -96,17 +96,17 @@
     
     UITableViewCell* cell = [self.blueView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
     cell.textLabel.text = peripheral.name;
     if (advData[CBAdvertisementDataManufacturerDataKey] != nil) {
-        NSString* str = [NSString stringWithFormat:@"Manufacture:%@",advData[CBAdvertisementDataManufacturerDataKey]];
+        NSString* str = [NSString stringWithFormat:@"Manu:%@",advData[CBAdvertisementDataManufacturerDataKey]];
         cell.detailTextLabel.text = str;
     }
     else
     {
-        cell.detailTextLabel.text = @"Manufacture:Unknown";
+        cell.detailTextLabel.text = @"Manu:Unknown";
     }
     return cell;
 }
@@ -114,12 +114,13 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.blue stopScan];
-    [self.blue connectPeripheral:[self.blue.bluelist objectAtIndex:indexPath.row]];
+    CBPeripheral* peripheral = [self.blue.bluelist objectAtIndex:indexPath.row];
+    [self.blue storeBoundID:peripheral.identifier];
+    [self.blue connectPeripheral:peripheral];
     [self hideWithAnimation:TRUE];
     [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(removeFromSuperview) userInfo:nil repeats:NO];
-    
-     NSDictionary *advData = [self.blue.advlist objectAtIndex:indexPath.row];
-     NSLog(@"selected manu:%@",advData[CBAdvertisementDataManufacturerDataKey]);
+    NSLog(@"selected name:%@",peripheral.name);
+    NSLog(@"selected ID:%@",peripheral.identifier);
 }
 
 -(void)didDiscoverNewPeripheral

@@ -26,6 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////////
 @interface Bluetooth : NSObject
 <CBCentralManagerDelegate,CBPeripheralDelegate>
+
 @property (retain,nonatomic) id<BluetoothDelegate> delegate;
 @property (retain,nonatomic) NSMutableArray     *bluelist;
 @property (retain,nonatomic) NSMutableArray     *advlist;
@@ -33,10 +34,12 @@
 @property (retain,nonatomic) CBPeripheral       *slave;
 @property (retain,nonatomic) CBCharacteristic   *batc;
 @property (retain,nonatomic) NSUUID             *boundID;
+@property (retain,nonatomic) NSTimer            *extTimer;
 - (void) startScan;
 - (void) stopScan;
 - (void) cleanlist;
 - (void) cleanBoundID;
+- (void) storeBoundID:(NSUUID *)ID;
 
 -(void)connectPeripheral:(CBPeripheral*)peripheral;
 -(void)cancelConnect;

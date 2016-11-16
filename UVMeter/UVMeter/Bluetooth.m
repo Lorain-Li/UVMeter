@@ -9,7 +9,6 @@
 #import "Bluetooth.h"
 
 @implementation Bluetooth
-
 - (instancetype) initWithDelegate:(id<BluetoothDelegate>)delegate
 {
     self = [super init];
@@ -18,20 +17,38 @@
     self.bluelist = [[NSMutableArray alloc] init];
     self.advlist = [[NSMutableArray alloc] init];
     NSUserDefaults* user = [NSUserDefaults standardUserDefaults];
-    self.boundID = [user objectForKey:@"boundID"];
+    NSString* boundstr = [user objectForKey:@"boundID"];
+    if (boundstr != nil) {
+        self.boundID = [[NSUUID alloc] initWithUUIDString:boundstr];
+    }
+    else
+    {
+        self.boundID = nil;
+    }
     return self;
 }
 
 - (void) startScan
 {
+    [self cleanlist];
     [self.manager scanForPeripheralsWithServices:nil options:nil];
     [self.delegate changeStateScanning];
+    if (self.extTimer != nil) {
+        [self.extTimer invalidate];
+    }
+    self.extTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(reStartScan) userInfo:nil repeats:NO];
+    NSLog(@"start scanning");
 }
 
 - (void) stopScan
 {
     [self.manager stopScan];
+    self.boundID = nil;
     [self.delegate changeStateDisconnect];
+    if (self.extTimer != nil) {
+        [self.extTimer invalidate];
+    }
+    NSLog(@"stop scanning");
 }
 
 - (void) cleanlist
@@ -45,18 +62,45 @@
     self.boundID = nil;
 }
 
+- (void) storeBoundID:(NSUUID *)ID
+{
+    self.boundID = ID;
+    NSUserDefaults* user = [NSUserDefaults standardUserDefaults];
+    NSString* boundstr = [NSString stringWithFormat:@"%@",self.boundID];
+    [user setObject:boundstr forKey:@"boundID"];
+    NSLog(@"stored ID:%@",ID);
+}
+
 -(void)connectPeripheral:(CBPeripheral *)peripheral
 {
+    self.slave = peripheral;
     [self.manager connectPeripheral:peripheral options:nil];
     [self.delegate changeStateConnecting];
-    self.slave = peripheral;
+    if (self.extTimer != nil) {
+        [self.extTimer invalidate];
+    }
+    self.extTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(reconnectPeripheral) userInfo:nil repeats:YES];
     NSLog(@"connecting");
+}
+
+-(void) reStartScan
+{
+    [self stopScan];
+    [self startScan];
+    NSLog(@"time extended,rescanning");
+}
+
+-(void) reconnectPeripheral
+{
+    [self cancelConnect];
+    [self.manager connectPeripheral:self.slave options:nil];
+    NSLog(@"time extended,reconnecting");
 }
 
 -(void)cancelConnect
 {
     [self.manager cancelPeripheralConnection:self.slave];
-    NSLog(@"canceled connect");
+    NSLog(@"canceling connect");
 }
 //////////////////////////////////////////////////////////////////////////////////蓝牙开启
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -65,7 +109,6 @@
         [self.delegate bluetoothIsReady];
         if (self.boundID != nil) {
             [self startScan];
-            [self.delegate changeStateScanning];
             NSLog(@"boundID:%@",self.boundID);
         }
         NSLog(@"Bluetooth is ok");
@@ -89,19 +132,20 @@
             }
         }
         if (norepeat) {
-            if (advertisementData[CBAdvertisementDataManufacturerDataKey] != nil && peripheral.name != nil) {
+            if (/*advertisementData[CBAdvertisementDataManufacturerDataKey] != nil && */peripheral.name != nil) {
                 [self.bluelist addObject:peripheral];
                 [self.advlist addObject:advertisementData];
                 [self.delegate didDiscoverNewPeripheral];
-                NSLog(@"%@",peripheral.identifier);
-                NSLog(@"%@",advertisementData);
+                NSLog(@"name:%@",peripheral.name);
+                NSLog(@"ID:%@",peripheral.identifier);
             }
         }
     }
     else
     {
-        if (peripheral.identifier == self.boundID) {
-            [self.manager connectPeripheral:peripheral options:nil];
+        if ([[NSString stringWithFormat:@"%@",peripheral.identifier] isEqualToString:[NSString stringWithFormat:@"%@",self.boundID]]) {
+            [self stopScan];
+            [self connectPeripheral:peripheral];
             [self.delegate changeStateConnecting];
             NSLog(@"connecting");
         }
@@ -111,13 +155,13 @@
 
 -(void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    if (self.extTimer != nil) {
+        [self.extTimer invalidate];
+    }
     self.slave = peripheral;
     self.slave.delegate = self;
     [self.delegate changeStateConnected];
     [self.slave discoverServices:nil];
-    self.boundID = peripheral.identifier;
-    NSUserDefaults* user = [NSUserDefaults standardUserDefaults];
-    [user setObject:self.boundID forKey:@"boundID"];
     NSLog(@"connected");
 }
 
@@ -133,8 +177,8 @@
 {
     for (CBService *service in peripheral.services) {
         [peripheral discoverCharacteristics:nil forService:service];
+        NSLog(@"fined service:%@",service.UUID.UUIDString);
     }
-    NSLog(@"%@",peripheral.services);
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(nonnull CBService *)service error:(nullable NSError *)error
@@ -151,6 +195,7 @@
                 [peripheral readValueForCharacteristic:characteristic];
                 self.batc = characteristic;
             }
+            NSLog(@"fined uuid:%@",characteristic.UUID.UUIDString);
         }
     }
 }
